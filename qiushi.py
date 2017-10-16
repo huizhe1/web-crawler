@@ -27,7 +27,7 @@ class QSBK:
     def getContent(self):
         """正则获取数据"""
         pattern = re.compile('<h2>.*?(.*?)</h2>.*?<div.*?content">.*?<span>(.*?)</span>.*?<div.*?'+
-                             'thumb.*?<a.*?>(.*?)</a>.*?<div class="stats.*?class="number">(.*?)</i>',re.S)
+                             'thumb.*?<a.*?>(.*?)</a>',re.S)
         items = re.findall(pattern, self.html)
         self.addStorys(items)
 
@@ -43,17 +43,15 @@ class QSBK:
             if not haveImg:
                 self.storys.append({
                     "author": self.trip_content(item[0]),
-                    "content": self.trip_content(item[1]),
-                    "stats": self.trip_content(item[3])
+                    "content": self.trip_content(item[1])
                 })
 
-            # else:
-            #     self.storys.append({
-            #         "author": self.trip_content(item[0]),
-            #         "content": self.trip_content(item[1]),
-            #         "img": self.trip_content(item[2]),
-            #         "stats": self.trip_content(item[3])
-            #     })
+            else:
+                self.storys.append({
+                    "author": self.trip_content(item[0]),
+                    "content": self.trip_content(item[1]),
+                    "img": self.trip_content(item[2])
+                })
 
     def getStory(self):
         """打印无图片故事"""
